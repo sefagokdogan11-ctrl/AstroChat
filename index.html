@@ -12,6 +12,7 @@
   :root {
     --ink: #14101f;
     --ink-2: #1c1730;
+    --ink-3: #221c3a;
     --parchment: #f4ead9;
     --parchment-2: #ece0ca;
     --gold: #c9a15a;
@@ -22,57 +23,29 @@
     --text-cream: #efe7f5;
     --text-dim-cream: #a89bc2;
     --danger: #a5334a;
+    --border-dim: rgba(201,161,90,0.16);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     font-family: 'Inter', -apple-system, sans-serif;
     background:
-      radial-gradient(1.5px 1.5px at 20% 15%, rgba(255,255,255,0.35), transparent),
-      radial-gradient(1.5px 1.5px at 75% 40%, rgba(255,255,255,0.25), transparent),
-      radial-gradient(1px 1px at 50% 70%, rgba(255,255,255,0.3), transparent),
-      radial-gradient(1px 1px at 90% 85%, rgba(255,255,255,0.2), transparent),
-      radial-gradient(1.5px 1.5px at 10% 90%, rgba(255,255,255,0.2), transparent),
-      radial-gradient(1.5px 1.5px at 35% 30%, rgba(255,255,255,0.15), transparent),
-      radial-gradient(ellipse at top, #241d3d, var(--ink) 55%);
+      radial-gradient(1.5px 1.5px at 20% 15%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1.5px 1.5px at 75% 40%, rgba(255,255,255,0.22), transparent),
+      radial-gradient(1px 1px at 50% 70%, rgba(255,255,255,0.25), transparent),
+      radial-gradient(1px 1px at 90% 85%, rgba(255,255,255,0.18), transparent),
+      radial-gradient(1.5px 1.5px at 10% 90%, rgba(255,255,255,0.18), transparent),
+      radial-gradient(1.5px 1.5px at 35% 25%, rgba(255,255,255,0.13), transparent),
+      radial-gradient(1px 1px at 60% 10%, rgba(255,255,255,0.15), transparent),
+      var(--ink);
     background-attachment: fixed;
     color: var(--text-cream);
     min-height: 100vh;
-    padding-bottom: 60px;
   }
   a { color: var(--gold-bright); text-decoration: none; }
-  .icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.6; vertical-align: -3px; }
-
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 18px 22px; border-bottom: 1px solid rgba(201,161,90,0.18);
-    position: sticky; top: 0; background: rgba(20,16,31,0.82); backdrop-filter: blur(10px);
-    z-index: 10;
-  }
-  .brand { display: flex; align-items: center; gap: 8px; }
-  .brand svg { width: 22px; height: 22px; stroke: var(--gold-bright); fill: none; stroke-width: 1.3; }
-  .logo { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 22px; letter-spacing: 0.2px; color: var(--text-cream); }
-  header nav { display: flex; gap: 6px; align-items: center; }
-  .nav-link {
-    font-size: 13.5px; color: var(--text-dim-cream); background: none; border: none;
-    padding: 7px 12px; border-radius: 8px; cursor: pointer; font-family: inherit;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .nav-link:hover { color: var(--text-cream); background: rgba(201,161,90,0.09); }
-
-  main { max-width: 580px; margin: 0 auto; padding: 28px 18px; }
-  .hidden { display: none !important; }
-
-  input, textarea, select {
-    width: 100%; padding: 11px 13px; border-radius: 8px;
-    border: 1px solid rgba(201,161,90,0.25); background: rgba(255,255,255,0.03);
-    color: var(--text-cream); font-size: 14.5px; margin-bottom: 11px; font-family: 'Inter', sans-serif;
-  }
-  input::placeholder, textarea::placeholder { color: var(--text-dim-cream); }
-  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,0.05); }
-  textarea { resize: vertical; min-height: 76px; line-height: 1.5; }
-  select { color: var(--text-cream); }
-  select option { background: var(--ink-2); color: var(--text-cream); }
+  .icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.6; flex-shrink: 0; }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-thumb { background: rgba(201,161,90,0.25); border-radius: 8px; }
 
   button {
     cursor: pointer; border: none; border-radius: 8px;
@@ -86,40 +59,92 @@
   button.ghost:hover { color: var(--text-cream); border-color: var(--gold); }
   button.danger { background: var(--danger); color: #fbeaea; }
   button.small { padding: 6px 12px; font-size: 12.5px; }
+  button.follow-btn { padding: 5px 12px; font-size: 12px; background: transparent; border: 1px solid var(--wine); color: var(--wine); }
+  button.follow-btn.following { background: var(--wine); color: #fbeaea; }
 
-  .auth-wrap { max-width: 380px; margin: 60px auto 20px; text-align: center; }
-  .auth-wrap .brand { justify-content: center; margin-bottom: 6px; }
-  .auth-tagline { color: var(--text-dim-cream); font-size: 13.5px; margin-bottom: 28px; line-height: 1.5; }
-  .auth-box {
-    background: var(--parchment); border: 1px solid var(--gold);
-    border-radius: 4px; padding: 30px 26px; text-align: left;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  input, textarea, select {
+    width: 100%; padding: 11px 13px; border-radius: 8px;
+    border: 1px solid rgba(201,161,90,0.25); background: rgba(255,255,255,0.03);
+    color: var(--text-cream); font-size: 14.5px; margin-bottom: 11px; font-family: 'Inter', sans-serif;
   }
-  .auth-box h2 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 21px; color: var(--text-ink); margin-bottom: 18px; }
-  .auth-box input { background: #fff; border: 1px solid #d9c9a8; color: var(--text-ink); }
-  .auth-box input::placeholder { color: #9a8a76; }
-  .auth-box button { width: 100%; }
-  .auth-switch { text-align: center; margin-top: 14px; font-size: 13px; color: var(--text-dim-ink); }
-  .auth-switch a { color: var(--wine); font-weight: 600; }
-  .error-msg { color: var(--danger); font-size: 13px; margin-bottom: 12px; }
-  .success-msg { color: #3f7a4f; font-size: 13px; margin-bottom: 12px; }
+  input::placeholder, textarea::placeholder { color: var(--text-dim-cream); }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--gold); background: rgba(255,255,255,0.05); }
+  textarea { resize: vertical; min-height: 60px; line-height: 1.5; }
+  select { color: var(--text-cream); }
+  select option { background: var(--ink-2); color: var(--text-cream); }
 
-  .categories { display: flex; gap: 7px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 2px; }
+  .hidden { display: none !important; }
+
+  /* ===== APP SHELL: 3 columns like FB/X ===== */
+  .app-shell {
+    display: grid;
+    grid-template-columns: 250px minmax(0, 600px) 300px;
+    justify-content: center;
+    gap: 24px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+    min-height: 100vh;
+    align-items: start;
+  }
+
+  /* LEFT SIDEBAR */
+  .sidebar-left {
+    position: sticky; top: 0; height: 100vh;
+    padding: 22px 6px; display: flex; flex-direction: column;
+  }
+  .brand { display: flex; align-items: center; gap: 8px; padding: 0 10px 26px; }
+  .brand svg { width: 24px; height: 24px; stroke: var(--gold-bright); fill: none; stroke-width: 1.3; }
+  .logo { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 21px; color: var(--text-cream); }
+
+  .side-nav { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+  .side-link {
+    display: flex; align-items: center; gap: 14px; padding: 11px 12px;
+    border-radius: 10px; color: var(--text-dim-cream); font-size: 15px; font-weight: 500;
+    background: none; border: none; cursor: pointer; text-align: left; width: 100%; font-family: 'Inter', sans-serif;
+  }
+  .side-link .icon { width: 20px; height: 20px; }
+  .side-link:hover { background: rgba(201,161,90,0.08); color: var(--text-cream); }
+  .side-link.active { color: var(--gold-bright); }
+  .side-link.active .icon { stroke: var(--gold-bright); }
+  .side-link .soon { margin-left: auto; font-size: 9.5px; background: rgba(201,161,90,0.15); color: var(--gold-bright); padding: 2px 6px; border-radius: 8px; font-weight: 700; }
+
+  .side-share-btn { margin: 14px 10px 18px; padding: 12px; font-size: 14.5px; }
+
+  .side-user-card {
+    display: flex; align-items: center; gap: 10px; padding: 10px;
+    border-radius: 10px; margin-top: auto; cursor: pointer;
+  }
+  .side-user-card:hover { background: rgba(201,161,90,0.08); }
+  .side-user-card .info { flex: 1; min-width: 0; }
+  .side-user-card .uname { font-size: 13.5px; font-weight: 600; color: var(--text-cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .side-user-card .usub { font-size: 11.5px; color: var(--text-dim-cream); }
+
+  /* CENTER FEED */
+  .feed-col { padding: 22px 0 60px; min-width: 0; }
+  .col-header {
+    font-family: 'Fraunces', serif; font-size: 19px; font-weight: 500;
+    padding: 6px 2px 16px; color: var(--text-cream);
+  }
+
+  .categories { display: flex; gap: 7px; margin-bottom: 18px; overflow-x: auto; padding-bottom: 2px; }
   .cat-pill {
     padding: 7px 13px; border-radius: 7px; font-size: 13px;
-    background: rgba(255,255,255,0.03); border: 1px solid rgba(201,161,90,0.2); color: var(--text-dim-cream);
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border-dim); color: var(--text-dim-cream);
     white-space: nowrap; cursor: pointer; display: flex; align-items: center; gap: 6px;
-    transition: all 0.15s;
   }
   .cat-pill .icon { width: 13px; height: 13px; }
   .cat-pill.active { background: var(--gold); color: #241a0f; border-color: var(--gold); }
   .cat-pill.active svg { stroke: #241a0f; }
 
   .new-post {
-    background: rgba(255,255,255,0.035); border: 1px solid rgba(201,161,90,0.2);
-    border-radius: 10px; padding: 16px; margin-bottom: 26px;
+    background: rgba(255,255,255,0.035); border: 1px solid var(--border-dim);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 22px;
   }
-  .new-post-row { display: flex; gap: 8px; align-items: center; }
+  .new-post-top { display: flex; gap: 10px; }
+  .new-post-top .avatar { flex-shrink: 0; margin-top: 2px; }
+  .new-post-top textarea { margin-bottom: 8px; }
+  .new-post-row { display: flex; gap: 8px; align-items: center; padding-left: 46px; }
   .new-post select { width: auto; flex-shrink: 0; margin-bottom: 0; }
   .new-post button { flex-shrink: 0; margin-left: auto; }
 
@@ -127,32 +152,34 @@
     background: var(--parchment);
     background-image: linear-gradient(180deg, var(--parchment), var(--parchment-2));
     border: 1px solid var(--gold);
-    border-radius: 3px; padding: 18px 18px 14px; margin-bottom: 18px;
+    border-radius: 4px; padding: 18px 18px 14px; margin-bottom: 16px;
     color: var(--text-ink);
     position: relative;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
   }
   .post-card::before, .post-card::after {
     content: ''; position: absolute; width: 9px; height: 9px;
-    border: 1px solid var(--gold); opacity: 0.55;
+    border: 1px solid var(--gold); opacity: 0.5;
   }
   .post-card::before { top: 7px; left: 7px; border-right: none; border-bottom: none; }
   .post-card::after { bottom: 7px; right: 7px; border-left: none; border-top: none; }
 
-  .post-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .post-user { display: flex; align-items: center; gap: 10px; }
+  .post-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 8px; }
+  .post-user { display: flex; align-items: center; gap: 10px; min-width: 0; }
   .avatar {
     width: 36px; height: 36px; border-radius: 50%;
     background: var(--ink); border: 1.5px solid var(--gold);
     display: flex; align-items: center; justify-content: center;
     font-family: 'Fraunces', serif; font-weight: 600; font-size: 15px; color: var(--gold-bright);
   }
+  .username-row { display: flex; align-items: center; gap: 8px; }
   .username { font-weight: 600; font-size: 14px; color: var(--text-ink); }
   .post-meta { font-size: 11.5px; color: var(--text-dim-ink); }
+  .post-head-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .cat-tag {
     font-size: 11px; padding: 4px 10px; border-radius: 20px;
     background: rgba(124,45,66,0.1); color: var(--wine); font-weight: 600;
-    display: flex; align-items: center; gap: 4px;
+    display: flex; align-items: center; gap: 4px; white-space: nowrap;
   }
   .cat-tag .icon { width: 11px; height: 11px; stroke: var(--wine); }
   .post-content { font-size: 14.5px; line-height: 1.6; margin: 10px 0 12px; white-space: pre-wrap; color: var(--text-ink); }
@@ -174,9 +201,45 @@
   .comment-input-row { display: flex; gap: 6px; margin-top: 10px; }
   .comment-input-row input { margin-bottom: 0; background: #fff; border: 1px solid #d9c9a8; color: var(--text-ink); }
 
+  /* RIGHT SIDEBAR */
+  .sidebar-right { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 22px 4px 40px; display: flex; flex-direction: column; gap: 18px; }
+  .widget { background: rgba(255,255,255,0.035); border: 1px solid var(--border-dim); border-radius: 12px; padding: 16px; }
+  .widget h4 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 15px; margin-bottom: 12px; color: var(--text-cream); }
+  .suggest-row { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+  .suggest-row:last-child { margin-bottom: 0; }
+  .suggest-row .avatar { width: 32px; height: 32px; font-size: 13px; }
+  .suggest-info { flex: 1; min-width: 0; }
+  .suggest-name { font-size: 13px; font-weight: 600; color: var(--text-cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .suggest-burc { font-size: 11px; color: var(--text-dim-cream); }
+  .cat-list-widget { display: flex; flex-direction: column; gap: 2px; }
+  .cat-list-item { display: flex; align-items: center; gap: 10px; padding: 8px 6px; border-radius: 8px; font-size: 13.5px; color: var(--text-dim-cream); cursor: pointer; }
+  .cat-list-item:hover { background: rgba(201,161,90,0.08); color: var(--text-cream); }
+  .cat-list-item .icon { width: 15px; height: 15px; }
+  .widget-empty { font-size: 12.5px; color: var(--text-dim-cream); }
+  .footer-note { font-size: 11.5px; color: var(--text-dim-cream); line-height: 1.6; padding: 0 6px; }
+
+  /* AUTH VIEW */
+  .auth-wrap { max-width: 380px; margin: 60px auto 20px; text-align: center; padding: 0 20px; }
+  .auth-wrap .brand { justify-content: center; padding-bottom: 6px; }
+  .auth-tagline { color: var(--text-dim-cream); font-size: 13.5px; margin-bottom: 28px; line-height: 1.5; }
+  .auth-box {
+    background: var(--parchment); border: 1px solid var(--gold);
+    border-radius: 4px; padding: 30px 26px; text-align: left;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  .auth-box h2 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 21px; color: var(--text-ink); margin-bottom: 18px; }
+  .auth-box input { background: #fff; border: 1px solid #d9c9a8; color: var(--text-ink); }
+  .auth-box input::placeholder { color: #9a8a76; }
+  .auth-box button { width: 100%; }
+  .auth-switch { text-align: center; margin-top: 14px; font-size: 13px; color: var(--text-dim-ink); }
+  .auth-switch a { color: var(--wine); font-weight: 600; }
+  .error-msg { color: var(--danger); font-size: 13px; margin-bottom: 12px; }
+  .success-msg { color: #3f7a4f; font-size: 13px; margin-bottom: 12px; }
+
+  /* PROFILE */
   .profile-header {
-    background: rgba(255,255,255,0.035); border: 1px solid rgba(201,161,90,0.25);
-    border-radius: 10px; padding: 26px 20px; margin-bottom: 24px; text-align: center;
+    background: rgba(255,255,255,0.035); border: 1px solid var(--border-dim);
+    border-radius: 12px; padding: 26px 20px; margin-bottom: 22px; text-align: center;
   }
   .profile-header .avatar { width: 60px; height: 60px; font-size: 22px; margin: 0 auto 12px; }
   .profile-header .display-name { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 500; color: var(--text-cream); }
@@ -193,138 +256,224 @@
   }
   .modal-box {
     background: var(--parchment); border: 1px solid var(--gold);
-    border-radius: 4px; padding: 22px; max-width: 340px; width: 100%;
-    color: var(--text-ink);
+    border-radius: 4px; padding: 22px; max-width: 340px; width: 100%; color: var(--text-ink);
   }
   .modal-box h3 { font-family: 'Fraunces', serif; font-weight: 500; margin-bottom: 14px; font-size: 17px; }
   .modal-box input, .modal-box textarea, .modal-box select { background: #fff; border: 1px solid #d9c9a8; color: var(--text-ink); }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 6px; }
+
+  /* MOBILE HEADER + BOTTOM NAV */
+  .mobile-header { display: none; }
+  .mobile-bottom-nav { display: none; }
+
+  @media (max-width: 980px) {
+    .app-shell { grid-template-columns: 1fr; padding: 0; gap: 0; }
+    .sidebar-left { display: none; }
+    .sidebar-right { display: none; }
+    .feed-col { padding: 16px 14px 80px; }
+    .mobile-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px; border-bottom: 1px solid var(--border-dim);
+      position: sticky; top: 0; background: rgba(20,16,31,0.92); backdrop-filter: blur(10px); z-index: 20;
+    }
+    .mobile-header .brand { padding: 0; }
+    .mobile-bottom-nav {
+      display: flex; justify-content: space-around; align-items: center;
+      position: fixed; bottom: 0; left: 0; right: 0; height: 58px;
+      background: rgba(20,16,31,0.97); backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border-dim); z-index: 20;
+    }
+    .mobile-bottom-nav button { background: none; border: none; color: var(--text-dim-cream); padding: 8px; }
+    .mobile-bottom-nav button.active { color: var(--gold-bright); }
+    .mobile-bottom-nav .icon { width: 22px; height: 22px; }
+  }
 </style>
 </head>
 <body>
 
-<header>
+<!-- MOBILE TOP HEADER -->
+<div class="mobile-header" id="mobileHeader" style="display:none">
   <div class="brand">
-    <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/><path d="M17 3l.6 1.6L19 5l-1.4.6L17 7l-.6-1.4L15 5l1.4-.4z"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>
     <span class="logo">AstroChat</span>
   </div>
-  <nav id="navAuthed" class="hidden">
-    <button class="nav-link" onclick="showView('feed')">
-      <svg class="icon" viewBox="0 0 24 24"><path d="M3 12l9-8 9 8"/><path d="M5 10v9h14v-9"/></svg>Akış
-    </button>
-    <button class="nav-link" onclick="showView('profile')">
-      <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg>Profilim
-    </button>
-    <button class="nav-link" onclick="logout()">Çıkış</button>
-  </nav>
-</header>
+  <button class="ghost small" onclick="logout()">Çıkış</button>
+</div>
 
-<main>
+<div class="app-shell">
 
-  <!-- AUTH VIEW -->
-  <div id="view-auth">
-    <div class="auth-wrap">
-      <div class="brand">
-        <svg viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#e3c483;fill:none;stroke-width:1.3"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>
-        <span class="logo" style="font-size:26px">AstroChat</span>
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar-left hidden" id="sidebarLeft">
+    <div class="brand">
+      <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>
+      <span class="logo">AstroChat</span>
+    </div>
+    <nav class="side-nav">
+      <button class="side-link active" id="navFeed" onclick="showView('feed')">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 12l9-8 9 8"/><path d="M5 10v9h14v-9"/></svg>Akış
+      </button>
+      <button class="side-link" id="navProfile" onclick="showView('profile')">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg>Profilim
+      </button>
+      <button class="side-link" disabled style="cursor:default">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 5-2 6-2 6h16s-2-1-2-6"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>Bildirimler<span class="soon">Yakında</span>
+      </button>
+      <button class="side-link" onclick="logout()">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>Çıkış
+      </button>
+    </nav>
+    <button class="side-share-btn" onclick="focusComposer()">Paylaş</button>
+    <div class="side-user-card" onclick="showView('profile')">
+      <div class="avatar" id="sideAvatar">?</div>
+      <div class="info">
+        <div class="uname" id="sideUsername">—</div>
+        <div class="usub" id="sideBurc">Profilim</div>
       </div>
-      <p class="auth-tagline">Yargılanmadan sohbet edebileceğin, astroloji ve tarot dünyasına gerçekten ilgi duyan insanların bir araya geldiği yer.</p>
-      <div class="auth-box">
-        <h2 id="authTitle">Giriş Yap</h2>
-        <div id="authError" class="error-msg hidden"></div>
-        <div id="authSuccess" class="success-msg hidden"></div>
-        <input id="authEmail" type="email" placeholder="E-posta">
-        <input id="authPassword" type="password" placeholder="Şifre">
-        <button onclick="handleAuth()" id="authBtn">Giriş Yap</button>
-        <div class="auth-switch">
-          <span id="authSwitchText">Hesabın yok mu?</span>
-          <a href="#" onclick="toggleAuthMode(); return false;" id="authSwitchLink">Kayıt ol</a>
+    </div>
+  </aside>
+
+  <!-- CENTER FEED -->
+  <main class="feed-col">
+
+    <!-- AUTH VIEW -->
+    <div id="view-auth">
+      <div class="auth-wrap">
+        <div class="brand">
+          <svg viewBox="0 0 24 24" style="width:26px;height:26px;stroke:#e3c483;fill:none;stroke-width:1.3"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>
+          <span class="logo" style="font-size:26px">AstroChat</span>
+        </div>
+        <p class="auth-tagline">Yargılanmadan sohbet edebileceğin, astroloji ve tarot dünyasına gerçekten ilgi duyan insanların bir araya geldiği yer.</p>
+        <div class="auth-box">
+          <h2 id="authTitle">Giriş Yap</h2>
+          <div id="authError" class="error-msg hidden"></div>
+          <div id="authSuccess" class="success-msg hidden"></div>
+          <input id="authEmail" type="email" placeholder="E-posta">
+          <input id="authPassword" type="password" placeholder="Şifre">
+          <button onclick="handleAuth()" id="authBtn">Giriş Yap</button>
+          <div class="auth-switch">
+            <span id="authSwitchText">Hesabın yok mu?</span>
+            <a href="#" onclick="toggleAuthMode(); return false;" id="authSwitchLink">Kayıt ol</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- FEED VIEW -->
-  <div id="view-feed" class="hidden">
-    <div class="categories">
-      <div class="cat-pill active" data-cat="all" onclick="filterCategory('all')">Hepsi</div>
-      <div class="cat-pill" data-cat="astroloji" onclick="filterCategory('astroloji')"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>Astroloji</div>
-      <div class="cat-pill" data-cat="tarot" onclick="filterCategory('tarot')"><svg class="icon" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M12 8v8M9 12h6"/></svg>Tarot</div>
-      <div class="cat-pill" data-cat="ruya" onclick="filterCategory('ruya')"><svg class="icon" viewBox="0 0 24 24"><path d="M4 17c2-4 5-4 6-1s4 3 6-1 4-2 4-2"/><circle cx="18" cy="6" r="1.2"/><circle cx="20" cy="9" r="0.8"/></svg>Rüya</div>
-      <div class="cat-pill" data-cat="genel" onclick="filterCategory('genel')"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Genel</div>
-    </div>
+    <!-- FEED VIEW -->
+    <div id="view-feed" class="hidden">
+      <div class="col-header">Akış</div>
+      <div class="categories">
+        <div class="cat-pill active" data-cat="all" onclick="filterCategory('all')">Hepsi</div>
+        <div class="cat-pill" data-cat="astroloji" onclick="filterCategory('astroloji')"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>Astroloji</div>
+        <div class="cat-pill" data-cat="tarot" onclick="filterCategory('tarot')"><svg class="icon" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M12 8v8M9 12h6"/></svg>Tarot</div>
+        <div class="cat-pill" data-cat="ruya" onclick="filterCategory('ruya')"><svg class="icon" viewBox="0 0 24 24"><path d="M4 17c2-4 5-4 6-1s4 3 6-1 4-2 4-2"/><circle cx="18" cy="6" r="1.2"/><circle cx="20" cy="9" r="0.8"/></svg>Rüya</div>
+        <div class="cat-pill" data-cat="genel" onclick="filterCategory('genel')"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Genel</div>
+      </div>
 
-    <div class="new-post">
-      <textarea id="newPostContent" placeholder="Bir rüyanı, tarot açılımını ya da astrolojik gözlemini paylaş..."></textarea>
-      <div class="new-post-row">
-        <select id="newPostCategory">
-          <option value="genel">Genel</option>
-          <option value="astroloji">Astroloji</option>
-          <option value="tarot">Tarot</option>
-          <option value="ruya">Rüya</option>
-        </select>
-        <button onclick="createPost()">Paylaş</button>
+      <div class="new-post">
+        <div class="new-post-top">
+          <div class="avatar" id="composerAvatar">?</div>
+          <textarea id="newPostContent" placeholder="Bir rüyanı, tarot açılımını ya da astrolojik gözlemini paylaş..."></textarea>
+        </div>
+        <div class="new-post-row">
+          <select id="newPostCategory">
+            <option value="genel">Genel</option>
+            <option value="astroloji">Astroloji</option>
+            <option value="tarot">Tarot</option>
+            <option value="ruya">Rüya</option>
+          </select>
+          <button onclick="createPost()">Paylaş</button>
+        </div>
+      </div>
+
+      <div id="postsContainer">
+        <div class="loading">Yükleniyor...</div>
       </div>
     </div>
 
-    <div id="postsContainer">
-      <div class="loading">Yükleniyor...</div>
-    </div>
-  </div>
-
-  <!-- PROFILE VIEW -->
-  <div id="view-profile" class="hidden">
-    <div class="profile-header">
-      <div class="avatar" id="profileAvatar">?</div>
-      <div class="display-name" id="profileUsername"></div>
-      <div id="profileBurc" style="color:var(--text-dim-cream); font-size:13px; margin-top:5px;"></div>
-      <div class="profile-stats">
-        <div><b id="statPosts">0</b>Post</div>
-        <div><b id="statFollowers">0</b>Takipçi</div>
-        <div><b id="statFollowing">0</b>Takip</div>
+    <!-- PROFILE VIEW -->
+    <div id="view-profile" class="hidden">
+      <div class="col-header">Profilim</div>
+      <div class="profile-header">
+        <div class="avatar" id="profileAvatar">?</div>
+        <div class="display-name" id="profileUsername"></div>
+        <div id="profileBurc" style="color:var(--text-dim-cream); font-size:13px; margin-top:5px;"></div>
+        <div class="profile-stats">
+          <div><b id="statPosts">0</b>Post</div>
+          <div><b id="statFollowers">0</b>Takipçi</div>
+          <div><b id="statFollowing">0</b>Takip</div>
+        </div>
+        <button class="ghost small" style="margin-top:16px" onclick="openEditProfile()">Profili Düzenle</button>
       </div>
-      <button class="ghost small" style="margin-top:16px" onclick="openEditProfile()">Profili Düzenle</button>
+      <div id="myPostsContainer"></div>
     </div>
-    <div id="myPostsContainer"></div>
-  </div>
 
-  <!-- REPORT MODAL -->
-  <div id="reportModal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <h3>Bu paylaşımı şikayet et</h3>
-      <select id="reportReason">
-        <option value="asagilama">Aşağılama / alaycı içerik</option>
-        <option value="spam">Spam</option>
-        <option value="uygunsuz">Uygunsuz içerik</option>
-        <option value="diger">Diğer</option>
-      </select>
-      <div class="modal-actions">
-        <button class="ghost small" onclick="closeReportModal()">Vazgeç</button>
-        <button class="danger small" onclick="submitReport()">Şikayet Et</button>
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar-right hidden" id="sidebarRight">
+    <div class="widget">
+      <h4>Kimi takip edebilirsin</h4>
+      <div id="suggestContainer"><div class="widget-empty">Yükleniyor...</div></div>
+    </div>
+    <div class="widget">
+      <h4>Konular</h4>
+      <div class="cat-list-widget">
+        <div class="cat-list-item" onclick="showView('feed'); filterCategory('astroloji')"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>Astroloji</div>
+        <div class="cat-list-item" onclick="showView('feed'); filterCategory('tarot')"><svg class="icon" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M12 8v8M9 12h6"/></svg>Tarot</div>
+        <div class="cat-list-item" onclick="showView('feed'); filterCategory('ruya')"><svg class="icon" viewBox="0 0 24 24"><path d="M4 17c2-4 5-4 6-1s4 3 6-1 4-2 4-2"/><circle cx="18" cy="6" r="1.2"/><circle cx="20" cy="9" r="0.8"/></svg>Rüya</div>
+        <div class="cat-list-item" onclick="showView('feed'); filterCategory('genel')"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Genel</div>
       </div>
     </div>
-  </div>
+    <p class="footer-note">AstroChat, ilgi alanı aynı olan insanların yargılanmadan sohbet edebildiği bir alan olmayı amaçlar. ✨</p>
+  </aside>
 
-  <!-- EDIT PROFILE MODAL -->
-  <div id="editProfileModal" class="modal-overlay hidden">
-    <div class="modal-box">
-      <h3>Profili Düzenle</h3>
-      <input id="editUsername" placeholder="Kullanıcı adı">
-      <select id="editBurc">
-        <option value="">Burç seç</option>
-        <option>Koç</option><option>Boğa</option><option>İkizler</option><option>Yengeç</option>
-        <option>Aslan</option><option>Başak</option><option>Terazi</option><option>Akrep</option>
-        <option>Yay</option><option>Oğlak</option><option>Kova</option><option>Balık</option>
-      </select>
-      <textarea id="editBio" placeholder="Kendinden bahset..."></textarea>
-      <div class="modal-actions">
-        <button class="ghost small" onclick="closeEditProfile()">Vazgeç</button>
-        <button class="small" onclick="saveProfile()">Kaydet</button>
-      </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="mobile-bottom-nav hidden" id="mobileBottomNav">
+  <button class="active" id="mnavFeed" onclick="showView('feed')">
+    <svg class="icon" viewBox="0 0 24 24"><path d="M3 12l9-8 9 8"/><path d="M5 10v9h14v-9"/></svg>
+  </button>
+  <button id="mnavProfile" onclick="showView('profile')">
+    <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-4 3-6 7-6s7 2 7 6"/></svg>
+  </button>
+</div>
+
+<!-- REPORT MODAL -->
+<div id="reportModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3>Bu paylaşımı şikayet et</h3>
+    <select id="reportReason">
+      <option value="asagilama">Aşağılama / alaycı içerik</option>
+      <option value="spam">Spam</option>
+      <option value="uygunsuz">Uygunsuz içerik</option>
+      <option value="diger">Diğer</option>
+    </select>
+    <div class="modal-actions">
+      <button class="ghost small" onclick="closeReportModal()">Vazgeç</button>
+      <button class="danger small" onclick="submitReport()">Şikayet Et</button>
     </div>
   </div>
+</div>
 
-</main>
+<!-- EDIT PROFILE MODAL -->
+<div id="editProfileModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3>Profili Düzenle</h3>
+    <input id="editUsername" placeholder="Kullanıcı adı">
+    <select id="editBurc">
+      <option value="">Burç seç</option>
+      <option>Koç</option><option>Boğa</option><option>İkizler</option><option>Yengeç</option>
+      <option>Aslan</option><option>Başak</option><option>Terazi</option><option>Akrep</option>
+      <option>Yay</option><option>Oğlak</option><option>Kova</option><option>Balık</option>
+    </select>
+    <textarea id="editBio" placeholder="Kendinden bahset..."></textarea>
+    <div class="modal-actions">
+      <button class="ghost small" onclick="closeEditProfile()">Vazgeç</button>
+      <button class="small" onclick="saveProfile()">Kaydet</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ============================================
@@ -338,6 +487,7 @@ let currentUser = null;
 let currentProfile = null;
 let activeCategory = 'all';
 let reportTargetPostId = null;
+let followingSet = new Set();
 
 // ============================================
 // ICONS
@@ -350,14 +500,13 @@ const ICONS = {
   moon: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>',
   sparkle: '<svg class="icon" viewBox="0 0 24 24"><path d="M4 17c2-4 5-4 6-1s4 3 6-1 4-2 4-2"/><circle cx="18" cy="6" r="1.2"/><circle cx="20" cy="9" r="0.8"/></svg>',
   card: '<svg class="icon" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="1.5"/><path d="M12 8v8M9 12h6"/></svg>',
-  chat: '<svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>',
-  compass: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-6 2 2-6z"/></svg>'
+  chat: '<svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>'
 };
 
 // ============================================
 // AUTH
 // ============================================
-let authMode = 'login'; // 'login' | 'signup'
+let authMode = 'login';
 
 function toggleAuthMode() {
   authMode = authMode === 'login' ? 'signup' : 'login';
@@ -367,12 +516,10 @@ function toggleAuthMode() {
   document.getElementById('authSwitchLink').textContent = authMode === 'login' ? 'Kayıt ol' : 'Giriş yap';
   hideAuthMsgs();
 }
-
 function hideAuthMsgs() {
   document.getElementById('authError').classList.add('hidden');
   document.getElementById('authSuccess').classList.add('hidden');
 }
-
 async function handleAuth() {
   hideAuthMsgs();
   const email = document.getElementById('authEmail').value.trim();
@@ -383,9 +530,8 @@ async function handleAuth() {
   if (authMode === 'signup') {
     const { data, error } = await sb.auth.signUp({ email, password });
     if (error) { showAuthError(error.message); return; }
-    if (data.session) {
-      await onLoginSuccess();
-    } else {
+    if (data.session) { await onLoginSuccess(); }
+    else {
       document.getElementById('authSuccess').textContent = 'Kayıt başarılı! E-postanı kontrol edip onayladıktan sonra giriş yapabilirsin.';
       document.getElementById('authSuccess').classList.remove('hidden');
     }
@@ -395,33 +541,54 @@ async function handleAuth() {
     await onLoginSuccess();
   }
 }
-
 function showAuthError(msg) {
   const el = document.getElementById('authError');
   el.textContent = msg;
   el.classList.remove('hidden');
 }
-
 async function logout() {
   await sb.auth.signOut();
-  currentUser = null;
-  currentProfile = null;
-  document.getElementById('navAuthed').classList.add('hidden');
+  currentUser = null; currentProfile = null; followingSet = new Set();
+  toggleShellChrome(false);
   showView('auth');
 }
-
 async function onLoginSuccess() {
   const { data: { user } } = await sb.auth.getUser();
   currentUser = user;
   await loadMyProfile();
-  document.getElementById('navAuthed').classList.remove('hidden');
+  await loadFollowing();
+  toggleShellChrome(true);
+  updateSideUserCard();
   showView('feed');
   loadFeed();
+  loadSuggestions();
 }
-
 async function loadMyProfile() {
   const { data } = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
   if (data) currentProfile = data;
+}
+async function loadFollowing() {
+  const { data } = await sb.from('follows').select('following_id').eq('follower_id', currentUser.id);
+  followingSet = new Set((data || []).map(f => f.following_id));
+}
+
+function toggleShellChrome(show) {
+  document.getElementById('sidebarLeft').classList.toggle('hidden', !show);
+  document.getElementById('sidebarRight').classList.toggle('hidden', !show);
+  document.getElementById('mobileHeader').classList.toggle('hidden', !show);
+  document.getElementById('mobileBottomNav').classList.toggle('hidden', !show);
+}
+function updateSideUserCard() {
+  if (!currentProfile) return;
+  const initial = currentProfile.username.charAt(0).toUpperCase();
+  document.getElementById('sideAvatar').textContent = initial;
+  document.getElementById('sideUsername').textContent = currentProfile.display_name || currentProfile.username;
+  document.getElementById('sideBurc').textContent = currentProfile.burc || 'Profilim';
+  document.getElementById('composerAvatar').textContent = initial;
+}
+function focusComposer() {
+  showView('feed');
+  setTimeout(() => document.getElementById('newPostContent').focus(), 50);
 }
 
 // ============================================
@@ -431,7 +598,13 @@ function showView(name) {
   ['auth', 'feed', 'profile'].forEach(v => {
     document.getElementById('view-' + v).classList.toggle('hidden', v !== name);
   });
-  if (name === 'profile') loadProfileView();
+  ['navFeed', 'navProfile'].forEach(id => document.getElementById(id)?.classList.remove('active'));
+  ['mnavFeed', 'mnavProfile'].forEach(id => document.getElementById(id)?.classList.remove('active'));
+  if (name === 'feed') { document.getElementById('navFeed')?.classList.add('active'); document.getElementById('mnavFeed')?.classList.add('active'); }
+  if (name === 'profile') {
+    document.getElementById('navProfile')?.classList.add('active'); document.getElementById('mnavProfile')?.classList.add('active');
+    loadProfileView();
+  }
 }
 
 // ============================================
@@ -439,24 +612,16 @@ function showView(name) {
 // ============================================
 function filterCategory(cat) {
   activeCategory = cat;
-  document.querySelectorAll('.cat-pill').forEach(p => {
-    p.classList.toggle('active', p.dataset.cat === cat);
-  });
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.toggle('active', p.dataset.cat === cat));
   loadFeed();
 }
-
 async function loadFeed() {
   const container = document.getElementById('postsContainer');
   container.innerHTML = '<div class="loading">Yükleniyor...</div>';
-
-  let query = sb.from('posts').select('*, profiles(username, avatar_url), likes(user_id), comments(id, content, created_at, profiles(username))').order('created_at', { ascending: false }).limit(50);
+  let query = sb.from('posts').select('*, profiles(id, username, avatar_url), likes(user_id), comments(id, content, created_at, profiles(username))').order('created_at', { ascending: false }).limit(50);
   if (activeCategory !== 'all') query = query.eq('category', activeCategory);
-
   const { data: posts, error } = await query;
-  if (error) {
-    container.innerHTML = '<div class="empty-state">Bir hata oluştu: ' + error.message + '</div>';
-    return;
-  }
+  if (error) { container.innerHTML = '<div class="empty-state">Bir hata oluştu: ' + error.message + '</div>'; return; }
   if (!posts || posts.length === 0) {
     container.innerHTML = '<div class="empty-state">' + ICONS.moon + '<div>Henüz paylaşım yok.<br>İlk paylaşımı sen yap.</div></div>';
     return;
@@ -469,11 +634,15 @@ const catIcons = { astroloji: ICONS.moon, tarot: ICONS.card, ruya: ICONS.sparkle
 
 function renderPostCard(post) {
   const username = post.profiles?.username || 'Bilinmeyen';
+  const authorId = post.profiles?.id || post.user_id;
   const initial = username.charAt(0).toUpperCase();
   const liked = post.likes?.some(l => l.user_id === currentUser?.id);
   const likeCount = post.likes?.length || 0;
   const comments = post.comments || [];
   const timeAgo = formatTimeAgo(post.created_at);
+  const isOwn = authorId === currentUser?.id;
+  const isFollowing = followingSet.has(authorId);
+  const followBtn = isOwn ? '' : `<button class="follow-btn ${isFollowing ? 'following' : ''}" onclick="toggleFollow('${authorId}', ${isFollowing})">${isFollowing ? 'Takiptesin' : 'Takip Et'}</button>`;
 
   return `
     <div class="post-card">
@@ -481,11 +650,14 @@ function renderPostCard(post) {
         <div class="post-user">
           <div class="avatar">${initial}</div>
           <div>
-            <div class="username">${escapeHtml(username)}</div>
+            <div class="username-row"><span class="username">${escapeHtml(username)}</span></div>
             <div class="post-meta">${timeAgo}</div>
           </div>
         </div>
-        <span class="cat-tag">${catIcons[post.category] || ''}${catLabels[post.category] || post.category}</span>
+        <div class="post-head-right">
+          ${followBtn}
+          <span class="cat-tag">${catIcons[post.category] || ''}${catLabels[post.category] || post.category}</span>
+        </div>
       </div>
       <div class="post-content">${escapeHtml(post.content)}</div>
       <div class="post-actions">
@@ -506,19 +678,13 @@ function renderPostCard(post) {
   `;
 }
 
-function toggleComments(postId) {
-  document.getElementById('comments-' + postId).classList.toggle('hidden');
-}
+function toggleComments(postId) { document.getElementById('comments-' + postId).classList.toggle('hidden'); }
 
 async function toggleLike(postId, currentlyLiked) {
-  if (currentlyLiked) {
-    await sb.from('likes').delete().eq('post_id', postId).eq('user_id', currentUser.id);
-  } else {
-    await sb.from('likes').insert({ post_id: postId, user_id: currentUser.id });
-  }
+  if (currentlyLiked) await sb.from('likes').delete().eq('post_id', postId).eq('user_id', currentUser.id);
+  else await sb.from('likes').insert({ post_id: postId, user_id: currentUser.id });
   loadFeed();
 }
-
 async function addComment(postId) {
   const input = document.getElementById('commentInput-' + postId);
   const content = input.value.trim();
@@ -526,27 +692,53 @@ async function addComment(postId) {
   const { error } = await sb.from('comments').insert({ post_id: postId, user_id: currentUser.id, content });
   if (!error) { input.value = ''; loadFeed(); }
 }
-
 async function createPost() {
   const content = document.getElementById('newPostContent').value.trim();
   const category = document.getElementById('newPostCategory').value;
   if (!content) return;
   const { error } = await sb.from('posts').insert({ user_id: currentUser.id, content, category });
   if (!error) { document.getElementById('newPostContent').value = ''; loadFeed(); }
-  else { alert('Paylaşım gönderilemedi: ' + error.message); }
+  else alert('Paylaşım gönderilemedi: ' + error.message);
+}
+
+// ============================================
+// FOLLOW
+// ============================================
+async function toggleFollow(targetId, currentlyFollowing) {
+  if (currentlyFollowing) {
+    await sb.from('follows').delete().eq('follower_id', currentUser.id).eq('following_id', targetId);
+    followingSet.delete(targetId);
+  } else {
+    await sb.from('follows').insert({ follower_id: currentUser.id, following_id: targetId });
+    followingSet.add(targetId);
+  }
+  loadFeed();
+  loadSuggestions();
+}
+async function loadSuggestions() {
+  const container = document.getElementById('suggestContainer');
+  if (!container) return;
+  const { data, error } = await sb.from('profiles').select('id, username, burc').neq('id', currentUser.id).limit(20);
+  if (error || !data) { container.innerHTML = '<div class="widget-empty">Şu an öneri yok.</div>'; return; }
+  const notFollowed = data.filter(p => !followingSet.has(p.id)).slice(0, 4);
+  if (notFollowed.length === 0) { container.innerHTML = '<div class="widget-empty">Herkesi zaten takip ediyorsun.</div>'; return; }
+  container.innerHTML = notFollowed.map(p => `
+    <div class="suggest-row">
+      <div class="avatar">${p.username.charAt(0).toUpperCase()}</div>
+      <div class="suggest-info">
+        <div class="suggest-name">${escapeHtml(p.username)}</div>
+        <div class="suggest-burc">${p.burc ? escapeHtml(p.burc) : 'Burç yok'}</div>
+      </div>
+      <button class="follow-btn" onclick="toggleFollow('${p.id}', false)">Takip Et</button>
+    </div>
+  `).join('');
 }
 
 // ============================================
 // REPORT
 // ============================================
-function openReportModal(postId) {
-  reportTargetPostId = postId;
-  document.getElementById('reportModal').classList.remove('hidden');
-}
-function closeReportModal() {
-  document.getElementById('reportModal').classList.add('hidden');
-  reportTargetPostId = null;
-}
+function openReportModal(postId) { reportTargetPostId = postId; document.getElementById('reportModal').classList.remove('hidden'); }
+function closeReportModal() { document.getElementById('reportModal').classList.add('hidden'); reportTargetPostId = null; }
 async function submitReport() {
   const reason = document.getElementById('reportReason').value;
   await sb.from('reports').insert({ reporter_id: currentUser.id, post_id: reportTargetPostId, reason });
@@ -560,6 +752,7 @@ async function submitReport() {
 async function loadProfileView() {
   await loadMyProfile();
   if (!currentProfile) return;
+  updateSideUserCard();
   document.getElementById('profileAvatar').textContent = currentProfile.username.charAt(0).toUpperCase();
   document.getElementById('profileUsername').textContent = currentProfile.display_name || currentProfile.username;
   document.getElementById('profileBurc').textContent = currentProfile.burc ? currentProfile.burc : 'Burç belirtilmemiş';
@@ -571,7 +764,7 @@ async function loadProfileView() {
   document.getElementById('statFollowers').textContent = followerCount || 0;
   document.getElementById('statFollowing').textContent = followingCount || 0;
 
-  const { data: myPosts } = await sb.from('posts').select('*, profiles(username, avatar_url), likes(user_id), comments(id, content, created_at, profiles(username))').eq('user_id', currentUser.id).order('created_at', { ascending: false });
+  const { data: myPosts } = await sb.from('posts').select('*, profiles(id, username, avatar_url), likes(user_id), comments(id, content, created_at, profiles(username))').eq('user_id', currentUser.id).order('created_at', { ascending: false });
   const container = document.getElementById('myPostsContainer');
   container.innerHTML = (myPosts && myPosts.length) ? myPosts.map(renderPostCard).join('') : '<div class="empty-state">Henüz paylaşımın yok.</div>';
 }
@@ -582,9 +775,7 @@ function openEditProfile() {
   document.getElementById('editBio').value = currentProfile.bio || '';
   document.getElementById('editProfileModal').classList.remove('hidden');
 }
-function closeEditProfile() {
-  document.getElementById('editProfileModal').classList.add('hidden');
-}
+function closeEditProfile() { document.getElementById('editProfileModal').classList.add('hidden'); }
 async function saveProfile() {
   const username = document.getElementById('editUsername').value.trim();
   const burc = document.getElementById('editBurc').value;
@@ -604,7 +795,6 @@ function escapeHtml(str) {
   div.textContent = str;
   return div.innerHTML;
 }
-
 function formatTimeAgo(dateStr) {
   const diff = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
   if (diff < 60) return 'az önce';
@@ -621,9 +811,12 @@ function formatTimeAgo(dateStr) {
   if (session) {
     currentUser = session.user;
     await loadMyProfile();
-    document.getElementById('navAuthed').classList.remove('hidden');
+    await loadFollowing();
+    toggleShellChrome(true);
+    updateSideUserCard();
     showView('feed');
     loadFeed();
+    loadSuggestions();
   } else {
     showView('auth');
   }
