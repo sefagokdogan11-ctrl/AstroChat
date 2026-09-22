@@ -131,6 +131,14 @@
   }
 
   .categories { display: flex; gap: 7px; margin-bottom: 18px; overflow-x: auto; padding-bottom: 2px; }
+  .feed-tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 1px solid var(--border-dim); }
+  .feed-tab {
+    background: none; border: none; padding: 12px 4px; margin-right: 22px;
+    color: var(--text-dim-cream); font-size: 14.5px; font-weight: 600; font-family: 'Inter', sans-serif;
+    border-bottom: 2px solid transparent; border-radius: 0; cursor: pointer;
+  }
+  .feed-tab.active { color: var(--text-cream); border-bottom-color: var(--gold); }
+  .feed-tab:hover { color: var(--text-cream); }
   .cat-pill {
     padding: 7px 13px; border-radius: 7px; font-size: 13px;
     background: rgba(255,255,255,0.03); border: 1px solid var(--border-dim); color: var(--text-dim-cream);
@@ -388,6 +396,10 @@
     <!-- FEED VIEW -->
     <div id="view-feed" class="hidden">
       <div class="col-header">Akış</div>
+      <div class="feed-tabs">
+        <button class="feed-tab active" id="tabForYou" onclick="setFeedMode('foryou')">Sana Özel</button>
+        <button class="feed-tab" id="tabFollowing" onclick="setFeedMode('following')">Takip Ettiklerin</button>
+      </div>
       <div class="categories">
         <div class="cat-pill active" data-cat="all" onclick="filterCategory('all')">Hepsi</div>
         <div class="cat-pill" data-cat="astroloji" onclick="filterCategory('astroloji')"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 8.5 12 7 7 0 0 1-8.5-12z"/></svg>Astroloji</div>
@@ -521,6 +533,7 @@ const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 let currentUser = null;
 let currentProfile = null;
 let activeCategory = 'all';
+let feedMode = 'foryou'; // 'foryou' | 'following'
 let reportTargetPostId = null;
 let followingSet = new Set();
 
@@ -650,11 +663,26 @@ function filterCategory(cat) {
   document.querySelectorAll('.cat-pill').forEach(p => p.classList.toggle('active', p.dataset.cat === cat));
   loadFeed();
 }
+function setFeedMode(mode) {
+  feedMode = mode;
+  document.getElementById('tabForYou').classList.toggle('active', mode === 'foryou');
+  document.getElementById('tabFollowing').classList.toggle('active', mode === 'following');
+  loadFeed();
+}
+
 async function loadFeed() {
   const container = document.getElementById('postsContainer');
   container.innerHTML = '<div class="loading">Yükleniyor...</div>';
+
+  if (feedMode === 'following' && followingSet.size === 0) {
+    container.innerHTML = '<div class="empty-state">' + ICONS.moon + '<div>Henüz kimseyi takip etmiyorsun.<br>Sağdaki önerilerden birini takip et, paylaşımları burada görünsün.</div></div>';
+    return;
+  }
+
   let query = sb.from('posts').select('*, profiles(id, username, avatar_url), likes(user_id), comments(id, content, created_at, profiles(username))').order('created_at', { ascending: false }).limit(50);
   if (activeCategory !== 'all') query = query.eq('category', activeCategory);
+  if (feedMode === 'following') query = query.in('user_id', Array.from(followingSet));
+
   const { data: posts, error } = await query;
   if (error) { container.innerHTML = '<div class="empty-state">Bir hata oluştu: ' + error.message + '</div>'; return; }
   if (!posts || posts.length === 0) {
