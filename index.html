@@ -243,27 +243,64 @@
   .error-msg { color: var(--danger); font-size: 13px; margin-bottom: 12px; }
   .success-msg { color: #3f7a4f; font-size: 13px; margin-bottom: 12px; }
 
-  .profile-header { background: rgba(255,255,255,0.035); border: 1px solid var(--border-dim); border-radius: 12px; padding: 26px 20px; margin-bottom: 8px; text-align: center; }
-  .profile-avatar-wrap { position: relative; width: 76px; height: 76px; margin: 0 auto 12px; }
-  .profile-avatar-wrap .avatar, .profile-avatar-wrap .avatar-img { width: 76px; height: 76px; font-size: 26px; }
+  .profile-header { background: rgba(255,255,255,0.035); border: 1px solid var(--border-dim); border-radius: 12px; margin-bottom: 8px; text-align: center; overflow: hidden; }
+  .profile-cover {
+    height: 130px; position: relative;
+    background: linear-gradient(120deg, #2b2050, #4a2f5e 45%, #6b3450 85%);
+    background-size: cover; background-position: center;
+  }
+  .profile-cover::after {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(1.5px 1.5px at 15% 30%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1.5px 1.5px at 70% 25%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 85% 55%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 55% 80%, rgba(255,255,255,0.3), transparent);
+  }
+  .cover-edit-badge {
+    position: absolute; bottom: 10px; right: 10px; background: rgba(20,16,31,0.6); backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.25); color: #fff; font-size: 11.5px; padding: 6px 11px; border-radius: 20px;
+    cursor: pointer; display: flex; align-items: center; gap: 5px; z-index: 2;
+  }
+  .cover-edit-badge svg { width: 12px; height: 12px; stroke: #fff; }
+  .profile-body { padding: 0 20px 26px; }
+  .profile-avatar-wrap { position: relative; width: 84px; height: 84px; margin: -42px auto 10px; }
+  .profile-avatar-wrap .avatar, .profile-avatar-wrap .avatar-img { width: 84px; height: 84px; font-size: 28px; border-width: 3px; border-color: var(--ink-2); box-shadow: var(--shadow-md); }
   .avatar-edit-badge {
-    position: absolute; bottom: 0; right: 0; width: 24px; height: 24px; border-radius: 50%;
-    background: var(--gold); border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer;
+    position: absolute; bottom: 2px; right: 2px; width: 25px; height: 25px; border-radius: 50%;
+    background: var(--gold); border: 2px solid var(--ink-2); display: flex; align-items: center; justify-content: center; cursor: pointer;
   }
   .avatar-edit-badge svg { width: 12px; height: 12px; stroke: #241a0f; }
-  .display-name { font-family: 'Fraunces', serif; font-size: 19px; font-weight: 500; color: var(--text-cream); }
-  .profile-bio { font-size: 13px; color: var(--text-dim-cream); margin-top: 6px; max-width: 340px; margin-left: auto; margin-right: auto; line-height: 1.5; }
-  .profile-stats { display: flex; justify-content: center; gap: 28px; margin-top: 16px; font-size: 12.5px; color: var(--text-dim-cream); }
-  .profile-stats .stat-clickable { cursor: pointer; }
-  .profile-stats b { color: var(--text-cream); display: block; font-size: 17px; font-family: 'Fraunces', serif; font-weight: 500; }
+  .display-name { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; color: var(--text-cream); }
+  .profile-handle { font-size: 13px; color: var(--text-dim-cream); margin-top: 2px; }
+  .profile-badges { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .zodiac-badge {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600;
+    background: rgba(201,161,90,0.12); color: var(--gold-bright); border: 1px solid rgba(201,161,90,0.3);
+    padding: 4px 11px; border-radius: 20px;
+  }
+  .join-badge {
+    display: inline-flex; align-items: center; gap: 5px; font-size: 12px;
+    color: var(--text-dim-cream); border: 1px solid var(--border-dim);
+    padding: 4px 11px; border-radius: 20px;
+  }
+  .join-badge svg, .zodiac-badge svg { width: 12px; height: 12px; }
+  .profile-bio { font-size: 13.5px; color: var(--text-cream); margin-top: 14px; max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .profile-stats { display: flex; justify-content: center; gap: 28px; margin-top: 18px; font-size: 12.5px; color: var(--text-dim-cream); padding-top: 16px; border-top: 1px solid var(--border-dim); }
+  .profile-stats .stat-clickable { cursor: pointer; border-radius: 8px; padding: 2px 6px; transition: background 0.15s var(--ease); }
+  .profile-stats .stat-clickable:hover { background: rgba(201,161,90,0.08); }
+  .profile-stats b { color: var(--text-cream); display: block; font-size: 18px; font-family: 'Fraunces', serif; font-weight: 500; }
   .profile-actions { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
 
   .profile-tabs { display: flex; gap: 4px; margin: 18px 0 16px; border-bottom: 1px solid var(--border-dim); overflow-x: auto; }
   .profile-tab {
     background: none; border: none; padding: 10px 14px; color: var(--text-dim-cream); font-size: 13.5px; font-weight: 600;
-    border-bottom: 2px solid transparent; white-space: nowrap;
+    border-bottom: 2px solid transparent; white-space: nowrap; display: flex; align-items: center; gap: 6px;
+    transition: color 0.15s var(--ease), border-color 0.15s var(--ease);
   }
-  .profile-tab.active { color: var(--text-cream); border-bottom-color: var(--gold); }
+  .profile-tab:hover { color: var(--text-cream); }
+  .profile-tab.active { color: var(--gold-bright); border-bottom-color: var(--gold); }
 
   .media-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
   .media-grid-item { position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 6px; cursor: pointer; background: var(--ink-2); }
@@ -456,32 +493,44 @@
     <div id="view-profile" class="hidden">
       <div class="col-header"><button class="back-btn hidden" id="profileBackBtn" onclick="showView('feed')">←</button>Profil</div>
       <div class="profile-header">
-        <div class="profile-avatar-wrap">
-          <div id="profileAvatarWrap"></div>
-          <div class="avatar-edit-badge hidden" id="avatarEditBadge" onclick="document.getElementById('avatarFileInput').click()">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+        <div class="profile-cover" id="profileCoverWrap">
+          <button class="cover-edit-badge hidden" id="coverEditBadge" onclick="document.getElementById('coverFileInput').click()">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>Kapak fotoğrafı
+          </button>
+          <input type="file" id="coverFileInput" accept="image/*" class="hidden" onchange="handleCoverSelect(event)">
+        </div>
+        <div class="profile-body">
+          <div class="profile-avatar-wrap">
+            <div id="profileAvatarWrap"></div>
+            <div class="avatar-edit-badge hidden" id="avatarEditBadge" onclick="document.getElementById('avatarFileInput').click()">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>
+            </div>
+            <input type="file" id="avatarFileInput" accept="image/*" class="hidden" onchange="handleAvatarSelect(event)">
           </div>
-          <input type="file" id="avatarFileInput" accept="image/*" class="hidden" onchange="handleAvatarSelect(event)">
-        </div>
-        <div class="display-name" id="profileUsername"></div>
-        <div id="profileBurc" style="color:var(--text-dim-cream); font-size:13px; margin-top:5px;"></div>
-        <div class="profile-bio" id="profileBio"></div>
-        <div class="profile-stats">
-          <div><b id="statPosts">0</b>Post</div>
-          <div class="stat-clickable" onclick="openFollowListModal(profileViewedId, 'followers')"><b id="statFollowers">0</b>Takipçi</div>
-          <div class="stat-clickable" onclick="openFollowListModal(profileViewedId, 'following')"><b id="statFollowing">0</b>Takip</div>
-        </div>
-        <div class="profile-actions">
-          <button class="ghost small" id="profileEditBtn" onclick="openEditProfile()">Profili Düzenle</button>
-          <button class="follow-btn hidden" id="profileFollowBtn"></button>
-          <button class="ghost small hidden" id="profileMessageBtn">Mesaj Gönder</button>
+          <div class="display-name" id="profileUsername"></div>
+          <div class="profile-handle" id="profileHandle"></div>
+          <div class="profile-badges">
+            <span class="zodiac-badge hidden" id="profileBurcBadge"></span>
+            <span class="join-badge" id="profileJoinBadge"></span>
+          </div>
+          <div class="profile-bio hidden" id="profileBio"></div>
+          <div class="profile-stats">
+            <div><b id="statPosts">0</b>Post</div>
+            <div class="stat-clickable" onclick="openFollowListModal(profileViewedId, 'followers')"><b id="statFollowers">0</b>Takipçi</div>
+            <div class="stat-clickable" onclick="openFollowListModal(profileViewedId, 'following')"><b id="statFollowing">0</b>Takip</div>
+          </div>
+          <div class="profile-actions">
+            <button class="ghost small" id="profileEditBtn" onclick="openEditProfile()">Profili Düzenle</button>
+            <button class="follow-btn hidden" id="profileFollowBtn"></button>
+            <button class="ghost small hidden" id="profileMessageBtn">Mesaj Gönder</button>
+          </div>
         </div>
       </div>
       <div class="profile-tabs">
-        <button class="profile-tab active" data-tab="posts" onclick="setProfileTab('posts')">Gönderiler</button>
-        <button class="profile-tab" data-tab="photos" onclick="setProfileTab('photos')">Fotoğraflar</button>
-        <button class="profile-tab" data-tab="videos" onclick="setProfileTab('videos')">Videolar</button>
-        <button class="profile-tab" data-tab="likes" onclick="setProfileTab('likes')">Beğenilenler</button>
+        <button class="profile-tab active" data-tab="posts" onclick="setProfileTab('posts')"><svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v11H8l-4 4z"/></svg>Gönderiler</button>
+        <button class="profile-tab" data-tab="photos" onclick="setProfileTab('photos')"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 15l-5-5-9 9"/></svg>Fotoğraflar</button>
+        <button class="profile-tab" data-tab="videos" onclick="setProfileTab('videos')"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg>Videolar</button>
+        <button class="profile-tab" data-tab="likes" onclick="setProfileTab('likes')"><svg class="icon" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.5-9C1 7.5 3 4 6.5 4 9 4 11 6 12 7.5 13 6 15 4 17.5 4 21 4 23 7.5 21.5 11 19 15.6 12 20 12 20z"/></svg>Beğenilenler</button>
       </div>
       <div id="profileTabContent"></div>
     </div>
@@ -916,10 +965,28 @@ async function loadProfileView() {
   if (!prof) return;
   if (isOwn) currentProfile = prof;
 
-  document.getElementById('profileAvatarWrap').innerHTML = renderAvatarHtml(prof, 76);
+  document.getElementById('profileAvatarWrap').innerHTML = renderAvatarHtml(prof, 84);
   document.getElementById('profileUsername').textContent = prof.display_name || prof.username;
-  document.getElementById('profileBurc').textContent = prof.burc ? prof.burc : 'Burç belirtilmemiş';
-  document.getElementById('profileBio').textContent = prof.bio || '';
+  document.getElementById('profileHandle').textContent = '@' + prof.username;
+
+  const coverWrap = document.getElementById('profileCoverWrap');
+  coverWrap.style.backgroundImage = prof.cover_url ? `url('${prof.cover_url}')` : '';
+
+  const burcBadge = document.getElementById('profileBurcBadge');
+  if (prof.burc) {
+    burcBadge.innerHTML = ICONS.moon + escapeHtml(prof.burc);
+    burcBadge.classList.remove('hidden');
+  } else {
+    burcBadge.classList.add('hidden');
+  }
+
+  const joinDate = prof.created_at ? new Date(prof.created_at) : null;
+  const joinLabel = joinDate ? joinDate.toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' }) : '';
+  document.getElementById('profileJoinBadge').innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>' + joinLabel + ' tarihinde katıldı';
+
+  const bioEl = document.getElementById('profileBio');
+  if (prof.bio) { bioEl.textContent = prof.bio; bioEl.classList.remove('hidden'); }
+  else { bioEl.classList.add('hidden'); }
 
   const { count: postCount } = await sb.from('posts').select('*', { count: 'exact', head: true }).eq('user_id', uid);
   const { count: followerCount } = await sb.from('follows').select('*', { count: 'exact', head: true }).eq('following_id', uid);
@@ -930,6 +997,7 @@ async function loadProfileView() {
 
   document.getElementById('profileEditBtn').classList.toggle('hidden', !isOwn);
   document.getElementById('avatarEditBadge').classList.toggle('hidden', !isOwn);
+  document.getElementById('coverEditBadge').classList.toggle('hidden', !isOwn);
   const followBtn = document.getElementById('profileFollowBtn');
   const msgBtn = document.getElementById('profileMessageBtn');
   followBtn.classList.toggle('hidden', isOwn);
@@ -1023,6 +1091,20 @@ async function handleAvatarSelect(event) {
   if (error) { alert('Güncellenemedi: ' + error.message); return; }
   await loadMyProfile();
   updateSideUserCard();
+  loadProfileView();
+}
+
+async function handleCoverSelect(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) { alert("Fotoğraf 5 MB'tan küçük olmalı."); return; }
+  const path = currentUser.id + '/cover_' + Date.now() + '_' + file.name.replace(/[^a-zA-Z0-9.]/g, '_');
+  const { error: uploadError } = await sb.storage.from('avatars').upload(path, file);
+  if (uploadError) { alert('Fotoğraf yüklenemedi: ' + uploadError.message); return; }
+  const { data: urlData } = sb.storage.from('avatars').getPublicUrl(path);
+  const { error } = await sb.from('profiles').update({ cover_url: urlData.publicUrl }).eq('id', currentUser.id);
+  if (error) { alert('Güncellenemedi: ' + error.message); return; }
+  await loadMyProfile();
   loadProfileView();
 }
 
